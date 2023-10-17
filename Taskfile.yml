@@ -1,20 +1,34 @@
 version: '3'
 
 tasks:
-  test:
+  install-precommit:
     cmds:
-      - poetry run pytest {{.CLI_ARGS}}
+      - cp .pre-commit .git/hooks/pre-commit
+      - chmod +x .git/hooks/pre-commit
 
   lint:
     cmds:
       - poetry run black . --check
       - poetry run mypy . --strict
 
+  test:
+    cmds:
+      - poetry run pytest {{.CLI_ARGS}}
+
   check:
     cmds:
       - task: lint
       - task: test
+      - task: check-readme
 
   fmt:
     cmds:
       - poetry run black .
+
+  make-readme:
+    cmds:
+      - poetry run python make_readme.py README.template.md > README.md
+
+  check-readme:
+    cmds:
+      - poetry run python make_readme.py README.template.md --check_file README.md

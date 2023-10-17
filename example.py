@@ -1,15 +1,3 @@
-# contextcache
-
-[![CI](https://github.com/Peter554/contextcache/actions/workflows/ci.yml/badge.svg)](https://github.com/Peter554/contextcache/actions/workflows/ci.yml)
-
-Cache a python function only in certain contexts.
-
-## Usage
-
-Here's an example:
-
-```py
-# example.py
 import contextvars
 
 import contextcache
@@ -33,18 +21,3 @@ double(1)
 with contextcache.use_caching(double):
     double(2)
     double(2)
-
-```
-
-Here's the output:
-
-```sh
-python example.py
-```
-
-```
-doubling 1
-doubling 1
-doubling 2
-
-```

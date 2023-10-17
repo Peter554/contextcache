@@ -242,6 +242,17 @@ docs = ["sphinx (>=5.3)", "sphinx-rtd-theme (>=1.0)"]
 testing = ["coverage (>=6.2)", "flaky (>=3.5.0)", "hypothesis (>=5.7.1)", "mypy (>=0.931)", "pytest-trio (>=0.7.0)"]
 
 [[package]]
+name = "shrtcodes"
+version = "1.0.4"
+description = "Simple shortcodes for Python."
+optional = false
+python-versions = ">=3.9,<4.0"
+files = [
+    {file = "shrtcodes-1.0.4-py3-none-any.whl", hash = "sha256:c2af2cad7b56bf32f00f4337ac5b70faabb6b116ab0a6a20b8ab6ea2b82087ba"},
+    {file = "shrtcodes-1.0.4.tar.gz", hash = "sha256:94509998233032667f370fb017a1a84188a32fce38070cc8e90ec46fae00cabf"},
+]
+
+[[package]]
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
@@ -266,4 +277,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "3d75be56dbf126259b98077d3a40218db0cfd4aada2355ddfd08573273ac5938"
+content-hash = "f936cf3bbe121d403303abb7d960c8f8b30a1ddb5f2ea9c0890d571efe3cd47d"

@@ -1,0 +1,15 @@
+# contextcache
+
+[![CI](https://github.com/Peter554/contextcache/actions/workflows/ci.yml/badge.svg)](https://github.com/Peter554/contextcache/actions/workflows/ci.yml)
+
+Cache a python function only in certain contexts.
+
+## Usage
+
+Here's an example:
+
+{% embed_file example.py syntax=py %}
+
+Here's the output:
+
+{% execute_python example.py %}
