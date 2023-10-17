@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/Peter554/contextcache/actions/workflows/ci.yml/badge.svg)](https://github.com/Peter554/contextcache/actions/workflows/ci.yml)
 
-Cache a python function only in certain contexts.
+Cache a python function *only in certain contexts*.
 
 ## Usage
 
@@ -15,6 +15,7 @@ import contextvars
 import contextcache
 
 # Define a private ContextVar to store the cached values. Don't touch this ContextVar!
+# You need to define a separate ContextVar for every function for which you want to enable caching.
 _double_cache = contextvars.ContextVar("double_cache", default=None)
 
 
@@ -33,7 +34,6 @@ print(double(1))
 with contextcache.use_caching(double):
     print(double(2))
     print(double(2))
-
 ```
 
 Here's the output:
@@ -50,5 +50,10 @@ doubling 1
 doubling 2
 4
 4
-
 ```
+
+See the tests for further examples.
+
+## Caveats
+
+* Function arguments must be hashable.

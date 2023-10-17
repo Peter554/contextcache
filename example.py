@@ -3,6 +3,7 @@ import contextvars
 import contextcache
 
 # Define a private ContextVar to store the cached values. Don't touch this ContextVar!
+# You need to define a separate ContextVar for every function for which you want to enable caching.
 _double_cache = contextvars.ContextVar("double_cache", default=None)
 
 

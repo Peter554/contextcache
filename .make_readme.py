@@ -12,7 +12,7 @@ def handle_embed_file(file_path, syntax="", comment_char="#"):
     with open(file_path) as f:
         return f"""```{syntax}
 {comment_char} {file_path}
-{f.read()}
+{f.read().strip()}
 ```"""
 
 
@@ -24,7 +24,7 @@ python {' '.join(python_args)}
 ```
 
 ```
-{cmd.stdout.decode()}
+{cmd.stdout.decode().strip()}
 ```"""
 
 

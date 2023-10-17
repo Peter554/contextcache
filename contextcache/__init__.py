@@ -26,7 +26,7 @@ def enable_caching(
 
     def decorator(f: Callable[P, T]) -> Callable[P, T]:
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
-            cache_key = (*args, *[(k, v) for k, v in kwargs.items()])
+            cache_key = (*args, *sorted(kwargs.items()))
             cache = contextvar.get()
             if cache is not None and cache_key in cache:
                 return cast(T, cache[cache_key])
