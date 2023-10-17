@@ -3,15 +3,19 @@ import contextlib
 from typing import TypeVar, ParamSpec, Callable, Any, cast, Generator, Awaitable
 
 
+P = ParamSpec("P")
+T = TypeVar("T")
+
+
 class ContextVarAlreadyAssignedToCache(Exception):
     ...
 
 
+class NestedCaching(Exception):
+    ...
+
+
 _registry: dict[Callable[..., Any], contextvars.ContextVar[Any]] = {}
-
-
-P = ParamSpec("P")
-T = TypeVar("T")
 
 
 def enable_caching(
@@ -61,11 +65,18 @@ def async_enable_caching(
 
 
 @contextlib.contextmanager
-def use_caching(f: Callable[..., Any]) -> Generator[None, None, None]:
+def use_caching(
+    f: Callable[..., Any],
+    # Is this call to `use_caching` allowed to be nested within another `use_caching` call.
+    allow_nested: bool = True,
+) -> Generator[None, None, None]:
     contextvar = _registry[f]
     if contextvar.get() is not None:
-        yield
-        return
+        if allow_nested:
+            yield
+            return
+        else:
+            raise NestedCaching
     contextvar.set({})
     try:
         yield
