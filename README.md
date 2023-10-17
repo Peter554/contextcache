@@ -26,13 +26,13 @@ def double(n: int) -> int:
 
 
 # Without caching.
-double(1)
-double(1)
+print(double(1))
+print(double(1))
 
 # With caching.
 with contextcache.use_caching(double):
-    double(2)
-    double(2)
+    print(double(2))
+    print(double(2))
 
 ```
 
@@ -44,7 +44,11 @@ python example.py
 
 ```
 doubling 1
+2
 doubling 1
+2
 doubling 2
+4
+4
 
 ```
