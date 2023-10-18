@@ -1,5 +1,6 @@
 import contextvars
 import contextlib
+import functools
 from typing import TypeVar, ParamSpec, Callable, Any, cast, Generator, Awaitable
 
 
@@ -25,6 +26,7 @@ def enable_caching(
         raise ContextVarAlreadyAssignedToCache
 
     def decorator(f: Callable[P, T]) -> Callable[P, T]:
+        @functools.wraps(f)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
             cache_key = (*args, *sorted(kwargs.items()))
             cache = contextvar.get()
@@ -48,6 +50,7 @@ def async_enable_caching(
         raise ContextVarAlreadyAssignedToCache
 
     def decorator(f: Callable[P, Awaitable[T]]) -> Callable[P, Awaitable[T]]:
+        @functools.wraps(f)
         async def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
             cache_key = (*args, *[(k, v) for k, v in kwargs.items()])
             cache = contextvar.get()
