@@ -6,10 +6,13 @@ shortcodes = shrtcodes.Shrtcodes()
 
 
 @shortcodes.register_inline("embed_file")
-def handle_embed_file(file_path: str, syntax: str = "", comment_char: str = "#") -> str:
+def handle_embed_file(file_path: str, syntax: str = "") -> str:
     with open(file_path) as f:
-        return f"""```{syntax}
-{comment_char} {file_path}
+        return f"""```sh
+cat {file_path}     
+```
+        
+```{syntax}
 {f.read().strip()}
 ```"""
 

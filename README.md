@@ -8,8 +8,11 @@ Cache a python function *only in certain contexts*.
 
 Here's an example:
 
+```sh
+cat example.py     
+```
+        
 ```py
-# example.py
 import contextvars
 
 import contextcache
