@@ -17,6 +17,7 @@ tasks:
   fmt:
     cmds:
       - poetry run black .
+      - poetry run ruff check --fix .
 
   check:
     cmds:
@@ -27,6 +28,7 @@ tasks:
   lint:
     cmds:
       - poetry run black . --check
+      - poetry run ruff check .
       - poetry run mypy . --strict
 
   test:

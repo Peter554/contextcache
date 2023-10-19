@@ -1,8 +1,9 @@
 import contextcache
 
-# Define a private CacheContextVar to store the cached values. Don't touch this CacheContextVar from anywhere else!
-# You need to define a separate CacheContextVar for every function for which you want to enable caching.
-# Use `None` as the default.
+# Define a private CacheContextVar to store the cached values.
+# Don't touch this CacheContextVar from anywhere else!
+# You need to define a separate CacheContextVar for every function for which
+# you want to enable caching. Use `None` as the default.
 _double_cache = contextcache.CacheContextVar("double_cache", default=None)
 
 
@@ -14,17 +15,17 @@ def double(n: int) -> int:
 
 
 # Without caching.
-print(f"Without caching")
+print("Without caching")
 print(double(1))
 print(double(1))
 
 # With caching.
 with contextcache.use_caching(double):
-    print(f"\nWith caching")
+    print("\nWith caching")
     print(double(1))
     print(double(1))
 
 # Without caching, again.
-print(f"\nWithout caching, again")
+print("\nWithout caching, again")
 print(double(1))
 print(double(1))

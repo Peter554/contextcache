@@ -1,18 +1,14 @@
-import contextvars
 import contextlib
+import contextvars
 import functools
+from collections.abc import Awaitable, Callable, Generator, Hashable
 from typing import (
-    TypeVar,
-    ParamSpec,
-    Callable,
     Any,
-    cast,
-    Generator,
-    Awaitable,
+    ParamSpec,
     Protocol,
-    Hashable,
+    TypeVar,
+    cast,
 )
-
 
 P = ParamSpec("P")
 T = TypeVar("T")
@@ -118,8 +114,6 @@ def use_caching(
     f: Callable[..., Any],
     *,
     cache_factory: Callable[[], Cache] = lambda: DictCache(),
-    # Is this call to `use_caching` allowed to be nested within another `use_caching` call.
-    # If nested within a parent `use_caching` the `cache_factory` will be ignored.
     allow_nested: bool = False,
 ) -> Generator[None, None, None]:
     contextvar = _registry[f]

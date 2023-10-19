@@ -5,7 +5,6 @@ import pytest
 
 import contextcache
 
-
 _double_cache = contextcache.CacheContextVar("double_cache", default=None)
 
 
