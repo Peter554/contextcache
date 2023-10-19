@@ -1,13 +1,12 @@
 import asyncio
 import logging
-import contextvars
 
 import pytest
 
 import contextcache
 
 
-_double_cache = contextvars.ContextVar("double_cache", default=None)
+_double_cache = contextcache.CacheContextVar("double_cache", default=None)
 
 
 @contextcache.enable_caching(_double_cache)
@@ -34,14 +33,18 @@ def test_caching(caplog: pytest.LogCaptureFixture) -> None:
     caplog.clear()
 
 
-def test_disallow_nested_caching() -> None:
+def test_nested_caching() -> None:
+    with contextcache.use_caching(double):
+        with contextcache.use_caching(double, allow_nested=True):
+            ...
+
     with pytest.raises(contextcache.NestedCaching):
         with contextcache.use_caching(double):
             with contextcache.use_caching(double, allow_nested=False):
                 ...
 
 
-_async_double_cache = contextvars.ContextVar("async_double_cache", default=None)
+_async_double_cache = contextcache.CacheContextVar("async_double_cache", default=None)
 
 
 @contextcache.async_enable_caching(_async_double_cache)

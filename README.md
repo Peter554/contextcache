@@ -13,14 +13,12 @@ cat example.py
 ```
         
 ```py
-import contextvars
-
 import contextcache
 
-# Define a private ContextVar to store the cached values. Don't touch this ContextVar!
-# You need to define a separate ContextVar for every function for which you want to enable caching.
-# contextcache can't do this for you since ContextVars must be global. Use `None` as the default.
-_double_cache = contextvars.ContextVar("double_cache", default=None)
+# Define a private CacheContextVar to store the cached values. Don't touch this CacheContextVar from anywhere else!
+# You need to define a separate CacheContextVar for every function for which you want to enable caching.
+# Use `None` as the default.
+_double_cache = contextcache.CacheContextVar("double_cache", default=None)
 
 
 # Use the `enable_caching` decorator to enable context caching for `double`.
