@@ -3,10 +3,26 @@ version: '3'
 output: prefixed
 
 tasks:
-  install-precommit:
+  install-pre-commit:
     cmds:
       - cp .pre-commit .git/hooks/pre-commit
       - chmod +x .git/hooks/pre-commit
+
+  pre-commit:
+    cmds:
+      - echo Stashing unstaged changes... && git diff > /tmp/diff && git apply --allow-empty --reverse /tmp/diff
+      - defer: echo Restoring unstaged changes... && git apply --allow-empty /tmp/diff
+      - task: check
+
+  fmt:
+    cmds:
+      - poetry run black .
+
+  check:
+    cmds:
+      - task: lint
+      - task: test
+      - task: check-readme
 
   lint:
     cmds:
@@ -16,16 +32,6 @@ tasks:
   test:
     cmds:
       - poetry run pytest {{.CLI_ARGS}}
-
-  check:
-    cmds:
-      - task: lint
-      - task: test
-      - task: check-readme
-
-  fmt:
-    cmds:
-      - poetry run black .
 
   make-readme:
     cmds:

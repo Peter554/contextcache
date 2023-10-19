@@ -1,2 +1,2 @@
 set -e
-task check
+task pre-commit
